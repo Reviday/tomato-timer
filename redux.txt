@@ -1,0 +1,92 @@
+### Why do we need it?
+
+- Components have local state, but apps have global state.
+
+- Sometimes state needs to shared.
+
+- We need to save the shared state somewhere.
+
+- Redux = State Container
+
+
+
+### When you don't need Redux
+
+- Building a Blog 
+
+### When do you need Redux?
+
+- Commenting on a post
+
+### Where is the author?
+
+- Where do we get it from?
+
+
+*========================================*
+*  <BlogContainer/>                      *
+*     State :                            *
+*       blogPosts                        *
+*       loggedUser                       *
+*                                        *
+*  <Post/>                               *
+*     State :                            *
+*       title                            *
+*       content                          *
+*       + loggedUser                     *
+*                                        *
+*  <Comment/>                            *
+*     State :                            *
+*       postId                           *
+*       Comment                          *
+*       + loggedUser                     *
+*========================================*
+
+
+### Useless Props
+
+- We are sending the 'loggedUser' prop to <Post/> so later
+  wecan send it to <Comment/> so then we can use it to 
+  reply to a comment.
+
+- Everything has to be inside of <BlogContainer/> and
+  that's not good news.
+
+
+### Enter : Redux
+
+*****************************           *****************************
+*<BlogContainer/>           *           *  # Redux Store            *
+*  **************************           *    *********************  *
+*  *<Post/>                 *           *    * {                 *  *
+*  *  ***********************           *    *    posts: [...],  *  *    
+*  *  *<Comment/>           *           *    *    uesr: {        *  *
+*  *  *                     *           *    *      id: 1,       *  *
+*  *  *                     *           *    *      ....         *  *
+*  *  *                     *           *    *    }              *  *
+*  *  *                     *           *    * }                 *  *
+*  *  *                     *           *    *********************  *
+*  *  *                     *           *                           *
+*****************************           *****************************
+
+### No flying Props
+
+
+### Redux is a global state container
+
+- The Redux Store is like a box
+
+- We go and grab what we need for the container
+
+- For example, from <Navigation/> we only grab the username.
+  
+
+### Stuff to remember
+
+- The whole state of yoir app is stored in an object(store)
+
+- If you want to change the data inside of this object you 
+  need to 'dispatch' (send) an action
+
+- You will send this actions to a reducer and this reducer
+  will chage the object for you.
