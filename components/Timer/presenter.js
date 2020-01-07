@@ -3,8 +3,28 @@ import { View, Text, StyleSheet, StatusBar } from 'react-native';
 import Button from "../Button/Button";
     
 class Timer extends Component {
+
+    componentWillReceiveProps(nextProps) { // 컴포넌트가 새로운 props를 얻을 때마다 호출함
+        const currentProps = this.props;
+        // console.log(`The current isPlaying is: ${currentProps.isPlaying} and the new isPlaying is: ${nextProps.isPlaying}`);
+        if(!currentProps.isPlaying && nextProps.isPlaying) {
+            // start the interval
+            console.log("should start!")    
+            const timerInterval = setInterval(() => {
+                currentProps.addSecond();
+            }, 1000);
+            this.setState({
+                timerInterval
+            })
+        } else if(currentProps.isPlaying && !nextProps.isPlaying) {
+            // stop the interval
+            console.log("should stop!")
+            clearInterval(this.state.timerInterval);
+        }
+    }
+
     render() {
-        const { isPlaying, elapsedTime, timerDuration, startTimer, restartTimer } = this.props; 
+        const { isPlaying, elapsedTime, timerDuration, startTimer, restartTimer, addSecond } = this.props; 
         console.log(this.props); 
         return (
             <View style={styles.container}>
