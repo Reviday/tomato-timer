@@ -1,4 +1,6 @@
 import { connect } from 'react-redux'; // 나의 컴포넌트를 스토어에 연결하는 것을 도와줌
+import { bindActionCreators } from 'redux'; 
+import { actionCreators as tomatoActions } from '../../reducer';
 import Timer from './presenter';
 
 function mapStateToProps(state) {
@@ -10,4 +12,11 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Timer);
+function mapDispatchToProps(dispatch) {
+    return {
+        startTimer: bindActionCreators(tomatoActions.startTimer, dispatch),
+        restartTimer: bindActionCreators(tomatoActions.restartTimer, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
