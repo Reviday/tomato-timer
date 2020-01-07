@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, StatusBar } from 'react-native';
 import Button from "../Button/Button";
+
+function formatTime(time) {
+    let minutes = Math.floor(time / 60);
+    time -= minutes * 60;
+  
+    let seconds = parseInt(time % 60, 10);
+  
+    return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10
+      ? `0${seconds}`
+      : seconds}`;
+}
     
 class Timer extends Component {
 
     componentWillReceiveProps(nextProps) { // 컴포넌트가 새로운 props를 얻을 때마다 호출함
         const currentProps = this.props;
-        // console.log(`The current isPlaying is: ${currentProps.isPlaying} and the new isPlaying is: ${nextProps.isPlaying}`);
         if(!currentProps.isPlaying && nextProps.isPlaying) {
             // start the interval
             console.log("should start!")    
@@ -25,12 +35,13 @@ class Timer extends Component {
 
     render() {
         const { isPlaying, elapsedTime, timerDuration, startTimer, restartTimer, addSecond } = this.props; 
-        console.log(this.props); 
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="light-content"/>
                 <View style={styles.upper}>
-                    <Text style={styles.time}>25:00</Text>
+                    <Text style={styles.time}>
+                        {formatTime(timerDuration - elapsedTime)}
+                    </Text>
                 </View>
                 <View style={styles.lower}>
                     {!isPlaying && (
